@@ -1,18 +1,22 @@
 let weather = {
     apiKey: "2681f97cfb330300769919b6c824491e",
     fetchWeather: function (city) {
-      fetch(
-        "https://api.openweathermap.org/data/2.5/weather?q=" +
-          city +
-          "&units=metric&appid=" +
-          this.apiKey
+        // create a fetch request 
+        fetch(
+            "https://api.openweathermap.org/data/2.5/weather?q=" +
+            city +
+            "&units=metric&appid=" +
+            this.apiKey
         )
+        // get back the promise from the fetch request and make sure it returned OK
         .then((response) => {
-          if (!response.ok) {
-            alert("No weather found.");
-            throw new Error("No weather found.");
-          }
-          return response.json();
+        
+            if (!response.ok) {
+                alert("No weather found.");
+                throw new Error("No weather found.");
+            }
+            // convert the returned http response and convert it to json data
+            return response.json();
         })
         .then((data) => this.displayWeather(data));
     },
@@ -25,6 +29,7 @@ let weather = {
         const { speed } = data.wind;
         const { temp_max, temp_min } = data.main;
 
+        // load the data into the elements on our HTML page
         document.querySelector(".city").innerText = "Weather in " + name;
         document.querySelector(".icon").src =
             "https://openweathermap.org/img/wn/" + icon + ".png";
@@ -44,7 +49,13 @@ let weather = {
             "url('https://source.unsplash.com/1600x900/?" + name + "')";
     },
     search: function () {
-        this.fetchWeather(document.querySelector(".search-bar").value);
+        
+        var city = document.querySelector(".search-bar").value;
+
+        // use regex to replacec the space in cities with 2 words with a + sign
+        city = city.replace(/ /g,"+");
+
+        this.fetchWeather(city);
     },
 };
 document.querySelector(".search button").addEventListener("click", function () {
