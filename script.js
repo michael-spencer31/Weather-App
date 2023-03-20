@@ -22,6 +22,8 @@ let weather = {
     },
     displayWeather: function (data) {
 
+        console.log(data);
+
         // get the data out of the api call
         const { name } = data;
         const { icon, description } = data.weather[0];
@@ -98,4 +100,15 @@ function convert_wind_direction(degree){
 function cToF(celsius) {
 
     return fahrenheit = celsius * 9 / 5 + 32;
+}
+function convert_time(timestamp) {
+    
+    var date = new Date(timestamp * 1000);
+    var hours = date.getHours();
+    var minutes = "0" + date.getMinutes();
+    var seconds = "0" + date.getSeconds();
+
+    var formatted_time = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+    
+    return formatted_time;
 }
