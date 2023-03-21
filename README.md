@@ -1,3 +1,3 @@
 # Weather App
 
-![Screenshot](weatherscreenshot.PNG)
+![Screenshot](frederictonweather.PNG)
