@@ -43,7 +43,7 @@ let weather = {
         document.querySelector(".humidity").innerText =
             "Humidity: " + humidity + "%";
         document.querySelector(".wind").innerText =
-            "Wind speed: " + speed + " km/h " + convert_wind_direction(data.wind.deg);
+            "Wind speed: " + (speed * 3.6) + " km/h " + convert_wind_direction(data.wind.deg);
 
         document.querySelector(".max").innerText = "High temperature " + temp_max + "°C";
         document.querySelector(".min").innerText = "Low temperature " + temp_min + "°C";
