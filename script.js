@@ -74,6 +74,7 @@ document
     }
 });
 
+// this is the default city the app will load when refreshed
 weather.fetchWeather("Fredericton");
 
 // take the wind direction in degrees and convert it to a cardinal direction
