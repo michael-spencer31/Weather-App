@@ -30,6 +30,7 @@ let weather = {
         const { temp, humidity, feels_like } = data.main;
         const { speed } = data.wind;
         const { temp_max, temp_min } = data.main;
+        const { sunrise, sunset } = data.sys;
 
         // load the data into the elements on our HTML page
         document.querySelector(".city").innerText = "Weather in " + name;
@@ -46,6 +47,9 @@ let weather = {
 
         document.querySelector(".max").innerText = "High temperature " + temp_max + "°C";
         document.querySelector(".min").innerText = "Low temperature " + temp_min + "°C";
+
+        document.querySelector(".sunrise").innerText = "Sunrise " + convert_time(sunrise) + "AM";
+        document.querySelector(".sunset").innerText = "Sunset " + convert_time(sunset);
         document.querySelector(".weather").classList.remove("loading");
         document.body.style.backgroundImage =
             "url('https://source.unsplash.com/1600x900/?" + name + "')";
@@ -75,7 +79,7 @@ document
 weather.fetchWeather("Fredericton");
 
 // take the wind direction in degrees and convert it to a cardinal direction
-function convert_wind_direction(degree){
+function convert_wind_direction(degree) {
 
     if(degree >= 350 || (degree >= 0  && degree <= 10)){
         return "N";
@@ -109,6 +113,15 @@ function convert_time(timestamp) {
     var seconds = "0" + date.getSeconds();
 
     var formatted_time = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-    
-    return formatted_time;
+
+    // check correct time format and split into components
+    var time = formatted_time.toString().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [formatted_time];
+
+    // if time format correct
+    if (time.length > 1) {  
+        time = time.slice(1);                       // remove full string match value
+        time[5] = +time[0] < 12 ? 'AM' : 'PM';      //  set am/pm
+        time[0] = +time[0] % 12 || 12;              // adjust hours
+    }
+    return time.join('');
 }
