@@ -48,8 +48,6 @@ let weather = {
         document.querySelector(".max").innerText = "High temperature " + temp_max + "°C";
         document.querySelector(".min").innerText = "Low temperature " + temp_min + "°C";
 
-        document.querySelector(".sunrise").innerText = "Sunrise " + convert_time(sunrise) + "AM";
-        document.querySelector(".sunset").innerText = "Sunset " + convert_time(sunset);
         document.querySelector(".weather").classList.remove("loading");
         document.body.style.backgroundImage =
             "url('https://source.unsplash.com/1600x900/?" + name + "')";
